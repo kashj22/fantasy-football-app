@@ -1,0 +1,158 @@
+// body {
+//   height: 860px;
+// }
+
+.pitch {
+  background: url(images/pitch.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 79%;
+  max-height: 840px;
+  height: 100%;
+  min-height: 480px;
+  text-align: center;
+  float: right;
+  position: relative;
+  z-index: 1;
+
+
+
+}
+
+.player {
+  height: 12%;
+  width: 11%;
+  display: inline-block;
+  vertical-align: top;
+  position: relative;
+  z-index: 2;
+}
+
+.player.active {
+  border: 2px solid white;
+  // height: 150px;
+  // width: 150px;
+}
+
+.player-select {
+  width: 20%;
+  // float: left;
+  text-align: center;
+  // overflow: auto;
+  max-height: 840px;
+  height: 100%;
+  min-height: 480px;
+  overflow-y: auto;
+  z-index: 2;
+}
+
+p {
+  display: inline;
+}
+
+#searchbar {
+  position: relative;
+  border: 1px solid black;
+  display: inline-block;
+  padding: 0 5px;
+  margin-bottom: 5px;
+  border-radius: 5px;
+
+}
+
+#searchbar input {
+  border: none;
+  height: 15px;
+  
+}
+
+h1 {
+  visibility: hidden;
+}
+
+.players-filters {
+  margin-bottom: 25px;
+}
+
+.select {
+  margin-bottom: 5px;
+  
+  
+}
+
+.players {
+  border: 1px solid black;
+  margin-bottom: 5px;
+  text-align: center;
+  cursor: move;
+  
+}
+
+
+
+.players.dragging {
+  position: relative;
+  z-index: 100;
+  // overflow-y: auto;
+  // height: 840px;
+}
+
+.cloned {
+  border: 1px solid black;
+  margin-bottom: 5px;
+  text-align: center;
+  cursor: move;
+  background-color: white;
+  height: 38px;
+  width: 252px;
+}
+
+.shirtname {
+  display: inline-block;
+  height: 15px;
+}
+
+.pitchbreak {
+  visibility: hidden;
+  display: block;
+  clear: both;
+  height: 70px;
+}
+
+
+
+
+
+
+/*formations in percentages*/
+.pitch-442 .defender-1{top:23px;right:16%}.pitch-442 .defender-2{left:-5%}.pitch-442 .defender-3{right:-5%}.pitch-442 .defender-4{top:23px;left:16%}.pitch-442 .midfielder-1{bottom:-67px;right:20%}.pitch-442 .midfielder-2{top:32px;right:6%}.pitch-442 .midfielder-3{top:32px;left:6%}.pitch-442 .midfielder-4{bottom:-67px;left:20%}.pitch-442 .forward-1{top:45px;right:5%}.pitch-442 .forward-2{top:45px;left:5%}.pitch-433 .defender-1{top:23px;right:16%}.pitch-433 .defender-2{left:-5%}.pitch-433 .defender-3{right:-5%}.pitch-433 .defender-4{top:23px;left:16%}.pitch-433 .midfielder-1{right:10%;top:30px}.pitch-433 .midfielder-2{bottom:45px}.pitch-433 .midfielder-3{left:10%;top:30px}.pitch-433 .forward-1{right:14%;top:35px}.pitch-433 .forward-2{top:70px}.pitch-433 .forward-3{left:14%;top:35px}.pitch-451 .defender-1{top:23px;right:16%}.pitch-451 .defender-2{left:-5%}.pitch-451 .defender-3{right:-5%}.pitch-451 .defender-4{top:23px;left:16%}.pitch-451 .midfielder-1{right:13%;top:30px}.pitch-451 .midfielder-2{right:7%;top:52px}.pitch-451 .midfielder-3{top:75px}.pitch-451 .midfielder-4{left:7%;top:52px}.pitch-451 .midfielder-5{left:13%;top:30px}.pitch-451 .forward-1{top:50px}.pitch-352 .defender-1{right:10%}.pitch-352 .defender-3{left:10%}.pitch-352 .midfielder-1{right:6%;top:30px}.pitch-352 .midfielder-2{bottom:40px;left:3%}.pitch-352 .midfielder-3{top:75px}.pitch-352 .midfielder-4{bottom:40px;right:3%}.pitch-352 .midfielder-5{left:6%;top:30px}.pitch-352 .forward-1{top:50px;right:5%}.pitch-352 .forward-2{top:50px;left:5%}.pitch-343 .defender-1{right:10%}.pitch-343 .defender-3{left:10%}.pitch-343 .midfielder-1{bottom:-67px;right:20%}.pitch-343 .midfielder-2{top:8px;right:5%}.pitch-343 .midfielder-3{top:8px;left:5%}.pitch-343 .midfielder-4{bottom:-67px;left:20%}.pitch-343 .forward-1{right:10%}.pitch-343 .forward-2{top:70px}.pitch-343 .forward-3{left:10%}.pitch-41212 .defender-1{top:23px;right:16%}.pitch-41212 .defender-2{left:-5%}.pitch-41212 .defender-3{right:-5%}.pitch-41212 .defender-4{top:23px;left:16%}.pitch-41212 .midfielder-1{top:0;right:6%}.pitch-41212 .midfielder-2{bottom:50px;left:5%}.pitch-41212 .midfielder-3{top:85px;right:6%}.pitch-41212 .midfielder-4{left:6%}.pitch-41212 .forward-1{top:40px;right:5%}.pitch-41212 .forward-2{top:40px;left:5%}
+/* This beautiful CSS-File has been crafted with LESS (lesscss.org) and compiled by simpLESS (wearekiss.com/simpless) */
+
+
+@media only screen 
+
+  and (max-width: 480px) {
+    .pitch {
+      width: 100%;
+
+    }
+
+    .pitchbreak {
+      height: 6px;
+    }
+
+    .pitch {
+      background-size: contain;
+      height: 100px;
+    }
+
+    .player-select {
+      width: 100%;
+    }
+  }
+
+
+
+
+
+

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>Angular Football Dreamteam</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-sanitize.min.js"></script>
+  <script src="bower_components/ngDraggable/ngDraggable.js"></script>
+  <script src="app.js"></script>
+  <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+
+  <div class="container" ng-controller="mainCtrl">
+
+    <div class="pitch pitch-{{formation.value}}">
+
+     <div class="pitchbreak">Goalkeeper</div> 
+     
+    <!-- click the goalie and you'll select this as the 1st position in the array-->
+     <div class="player" id="keeper" ng-click="selectplayer(1,'Goalkeeper')" data-ng-class="{'active':isActivePlayer(1)}" ng-drop="true" ng-drop-success="onDropComplete($data,$index+1)">
+        <!-- selected players go in myteam array. if a keeper is selected, show the image. if not then show the blank. Keeper is number 1 in selectplayer function so we go from 1-11 on the pitch instead of 0-10 -->
+       <img ng-if="myteam[1].name" src="images/teamkits/keeper.svg">
+       <img ng-if="!myteam[1].name" src="images/teamkits/keeperblank.svg">
+       <div class="shirtname">{{myteam[1].name}}</div>
+       
+
+     </div>
+
+     <div class="pitchbreak">Defenders</div>
+     <!-- put the number of defenders into a new array with getNumber, track by $index as angular doesn't allow duplicates in ng-repeat so the index will always be a unique value to go through formations which may have the same number of defenders and midfielders -->
+     <!-- will be going through players 1-11, 1 is Goalkeeper, so the following players will always be 2 more than it's index -->
+     <div class="player defender-{{$index+1}}" ng-repeat="i in getNumber(formation.defs) track by $index" ng-click="
+     selectplayer($index+2,'Defender')" data-ng-class="{'active':isActivePlayer($index+2)}" ng-drop="true" ng-drop-success="onDropComplete($data,$index+2)">
+       <img ng-if="myteam[$index+2].name" ng-src="images/teamkits/{{myteam[$index+2].teamfullname}}.svg">
+       <img ng-if="!myteam[$index+2].name" ng-src="images/teamkits/blankshirt.svg">
+       <div class="shirtname">{{myteam[$index+2].name}}</div>
+       
+     </div>
+
+     
+
+     <div class="pitchbreak">Midfielders</div>
+
+     <!-- iterate over the index and the defenders to get the position for midfield -->
+     <div class="player midfielder-{{$index+1}}" ng-repeat="i in getNumber(formation.mids) track by $index" ng-click="selectplayer(formation.defs + $index+2 ,Midfielder)" data-ng-class="{'active':isActivePlayer($index+2 + formation.defs)}" ng-drop="true" ng-drop-success="onDropComplete($data,$index+2 + formation.defs)">
+      <img ng-if="myteam[$index+2 + formation.defs].name" ng-src="images/teamkits/{{myteam[$index+2 +  formation.defs].teamfullname}}.svg">
+      <img ng-if="!myteam[$index+2 + formation.defs].name" ng-src="images/teamkits/blankshirt.svg">
+
+      <div class="shirtname">{{myteam[$index+2 + formation.defs].name}}</div>
+      
+
+  
+     </div>
+     
+
+     <div class="pitchbreak">Forwards</div>
+
+     <div class="player forward-{{$index+1}}" ng-repeat="i in getNumber(formation.fwds) track by $index" ng-click="selectplayer($index+2 + formation.defs + formation.mids ,Forward)" data-ng-class="{'active': isActivePlayer($index+2+formation.defs+formation.mids)}" ng-drop="true" ng-drop-success="onDropComplete($data,$index+2 + formation.defs + formation.mids)">
+       <img ng-if="myteam[$index+2+formation.defs+formation.mids].name" ng-src="images/teamkits/{{myteam[$index+2+formation.defs+formation.mids].teamfullname}}.svg">
+       <img ng-if="!myteam[$index+2+formation.defs+formation.mids].name" ng-src="images/teamkits/blankshirt.svg">
+
+       <div class="shirtname">{{myteam[$index+2 + formation.defs + formation.mids].name}}</div>
+       
+     </div>
+      
+    
+
+
+    </div> <!-- end of pitch -->
+
+    <div ng-drag-clone=" " class="cloned">
+      <p class="playername"><b>{{clonedData.name}}</b></p><br>
+      <p>{{clonedData.position}} - {{clonedData.team}}</p>
+    </div>
+
+    <div class="player-select">
+
+      <div class="players-filters">
+  
+      <div id="formation" class="select">
+        <select ng-model="formation" ng-options="formation as formation.value for formation in formations">
+          <option value="">Select Formation</option>
+        </select>
+      </div>  
+  
+        <div id="searchbar" class="select">
+          <input type="text" name="" ng-model="searchplayer.name" placeholder="search player">
+          <a class="clear" ng-click="clearSearch()">&#10006;</a>
+        </div>
+        
+        <div id="selectteam" class="select">
+          <select ng-model="selectteam" ng-options="team.value as team.name for team in teams"></select>
+          
+        </div>
+  
+        <div id="selectposition" class="select">
+          <select ng-model="selectposition" ng-options="p.name as p.name_plural for p in positions">
+          </select>
+          
+        </div>
+  
+        <button ng-click="clearAll()" class="clear">clear</button>
+  
+  
+      </div> <!-- end of players-filters -->
+  
+      <!-- click on a player and you'll select that player to go into the team array at the position selected from $scope.selectplayer -->
+      
+      <div class="players-list" ng-repeat="player in players | filter:searchplayer |  filter:selectteam | filter:selectposition" ng-click="chooseplayer(player)">
+
+        <div class="players" ng-drag="true" ng-drag-data="player" ng-drag-success="onDragComplete($data,$event)">
+        <p class="playername"><b>{{player.name}}</b></p><br>
+        <p>{{player.position}} - {{player.team}}</p>
+        </div>
+
+    
+      </div> 
+      
+    </div>
+
+    <!--  -->
+
+    
+    
+    
+
+
+
+  </div>
+
+
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
